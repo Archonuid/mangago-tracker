@@ -19,17 +19,19 @@ Google OAuth credentials.
 
 # Project Structure
 
-```mangago-tracker/```
-```├── icons/```
-```│   ├── icon16.png```
-```│   ├── icon48.png```
-```│   └── icon128.png```
-```├── manifest.json```
-```├── background.js```
-```├── content.js```
-```├── popup.html```
-```├── popup.js```
-```└── README.md```
+<pre>
+mangago-tracker/
+├── icons/
+│   ├── icon16.png
+│   ├── icon48.png
+│   └── icon128.png
+├── manifest.json
+├── background.js
+├── content.js
+├── popup.html
+├── popup.js
+└── README.md
+</pre>
 
 ### File overview
 
