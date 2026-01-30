@@ -48,3 +48,23 @@ mangago-tracker/
   Extension icons used by Chrome
 
 ---
+
+## 🚀 How It Works
+
+1. You connect the extension to a Google Sheet using OAuth
+2. The extension runs on `https://www.mangago.me/*`
+3. When you click:
+   - **Want to Read**
+   - **Reading**
+   - **Completed**
+4. The extension:
+   - Reads the manga title and page URL
+   - Finds or creates a row in your Google Sheet
+   - Updates the status automatically
+
+---
+
+## 🧩 Installation (Unpacked Extension)
+
+1. Clone or download this repository
+2. Open Chrome and go to: `chrome://extensions`
