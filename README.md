@@ -74,7 +74,6 @@ mangago-tracker/
 
 ## 🔐 Google OAuth Setup (Required)
 Because this extension is not bundled with a shared OAuth client, **each user must create their own Google OAuth credentials**. It is Free.
-
 ### Step 1: Create a Google Cloud Project
 1. Go to `https://console.cloud.google.com`
 2. Click **New Project**
@@ -133,7 +132,6 @@ Save the file and reload the extension in `chrome://extensions`.
 5. Click Save Settings
 6. Click Test Connection
 7. Approve Google OAuth
-
 The extension will automatically create headers if the sheet is empty.
 
 ---
@@ -159,5 +157,4 @@ Works best in Google Chrome. Brave and other Chromium browsers may require addit
 ---
 
 ## 🤝 Contributing
-
 Pull requests and issues are welcome. Feel free to fork and adapt this project for your own needs.
