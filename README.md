@@ -5,7 +5,10 @@ A Chrome extension that automatically syncs your Mangago reading list actions
 This project is open-source and can be used by anyone by setting up their own
 Google OAuth credentials.
 
-https://github.com/Archonuid/mangago-tracker/issues/1
+<img width="1918" height="1140" alt="Image" src="https://github.com/user-attachments/assets/1e9a40e7-03b0-4f42-8ccb-5b22d5a58802" />
+<img width="1918" height="1087" alt="Image" src="https://github.com/user-attachments/assets/174dc6eb-f861-44f5-b7ff-ca02b1bc4d79" />
+<img width="1918" height="1087" alt="Image" src="https://github.com/user-attachments/assets/909ef1cd-2416-46c5-80a6-8cdbba6aa341" />
+<img width="1918" height="820" alt="Image" src="https://github.com/user-attachments/assets/0792a3e8-4d31-4dc5-ada2-838b4dab4ec3" />
 
 ## ✨ Features
 - Sync Mangago reading list actions to Google Sheets
