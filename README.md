@@ -1,6 +1,6 @@
 # 📚 Mangago Reading List Tracker
 A Chrome extension that automatically syncs your Mangago reading list actions  
-(**Want to Read, Reading, Completed**) to a Google Sheet.
+(**Want to Read, Reading, Already Read**) to a Google Sheet. Never lose your reading lists again.
 
 This project is open-source and can be used by anyone by setting up their own
 Google OAuth credentials.
