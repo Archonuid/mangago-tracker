@@ -59,20 +59,21 @@ mangago-tracker/
 3. When you click:
    - **Want to Read**
    - **Reading**
-   - **Completed**
+   - **Already Read**
 4. The extension:
    - Reads the manga title and page URL
    - Finds or creates a row in your Google Sheet
    - Updates the status automatically
 
 ---
-# To run it on your own device
+
+# To run it on your own device (Or you can use my extension on Chrome web store)
 
 ## 🧩 Installation (Unpacked Extension)
 
 1. Clone or download this repository
 2. Open Chrome and go to: `chrome://extensions`
-3. 3. Enable **Developer mode**
+3. Enable **Developer mode**
 4. Click **Load unpacked**
 5. Select the project folder
 
@@ -80,11 +81,11 @@ mangago-tracker/
 
 ## 🔐 Google OAuth Setup (Required)
 
-Because this extension is not bundled with a shared OAuth client, **each user must create their own Google OAuth credentials**.
+Because this extension is not bundled with a shared OAuth client, **each user must create their own Google OAuth credentials**. It is Free.
 
 ### Step 1: Create a Google Cloud Project
 
-1. Go to https://console.cloud.google.com
+1. Go to `https://console.cloud.google.com`
 2. Click **New Project**
 3. Name it anything (e.g. `Mangago Tracker`)
 4. Create the project
