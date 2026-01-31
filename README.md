@@ -2,12 +2,22 @@
 A Chrome extension that automatically syncs your Mangago reading list actions  
 (**Want to Read, Reading, Already Read**) to a Google Sheet. Never lose your reading lists again.
 
+## ❓ Why Mangago Tracker?
+Manga sites go down. When they do, reading lists often disappear with them.
+
+Recent Mangago blackouts and the ongoing takedowns of manga sites (like bato.to), along with instability in reader apps such as Mihon or Tachiyomi, make platform-based reading lists unreliable.
+
+Mangago Tracker saves your reading list directly to your own Google Sheet, under your Google account, so you never lose it — even if a site goes offline or shuts down.
+
 This project is open-source and can be used by anyone by setting up their own
 Google OAuth credentials.
-
+Step 1: Enter Spreadsheet ID.
 <img width="1918" height="1140" alt="Image" src="https://github.com/user-attachments/assets/1e9a40e7-03b0-4f42-8ccb-5b22d5a58802" />
+Step 2: After entering spreadsheet ID, click Save Settings.
 <img width="1918" height="1087" alt="Image" src="https://github.com/user-attachments/assets/174dc6eb-f861-44f5-b7ff-ca02b1bc4d79" />
+Step 3: Click on test connection.
 <img width="1918" height="1087" alt="Image" src="https://github.com/user-attachments/assets/909ef1cd-2416-46c5-80a6-8cdbba6aa341" />
+Step 4: Go to any manga on mangago and add it to your 'Want to Read', 'Reading' or 'Already Read' list and you will see that manga in your Spreadsheet.
 <img width="1918" height="820" alt="Image" src="https://github.com/user-attachments/assets/0792a3e8-4d31-4dc5-ada2-838b4dab4ec3" />
 
 ## ✨ Features
@@ -68,6 +78,26 @@ mangago-tracker/
 ---
 
 # To run it on your own device (Or you can use my extension on Chrome web store)
+## Pre-requisites
+To use or contribute to this project, you’ll need:
+
+Google Chrome (or another Chromium-based browser)
+Required to load and test the extension.
+
+A Google account
+Needed for Google OAuth authentication and Google Sheets access.
+
+Google Cloud project
+Used to create OAuth credentials and enable the Google Sheets API.
+
+Basic knowledge of JavaScript, HTML, and Chrome Extensions
+Helpful for understanding and modifying the extension code.
+
+Git (optional)
+Required only if you plan to clone the repository and contribute changes.
+
+---
+
 ## 🧩 Installation (Unpacked Extension)
 1. Clone or download this repository
 2. Open Chrome and go to: `chrome://extensions`
