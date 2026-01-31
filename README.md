@@ -9,8 +9,8 @@ Recent Mangago blackouts and the ongoing takedowns of manga sites (like bato.to)
 
 Mangago Tracker saves your reading list directly to your own Google Sheet, under your Google account, so you never lose it — even if a site goes offline or shuts down.
 
-This project is open-source and can be used by anyone by setting up their own
-Google OAuth credentials.
+---
+
 Step 1: Enter Spreadsheet ID.
 <img width="1918" height="1140" alt="Image" src="https://github.com/user-attachments/assets/1e9a40e7-03b0-4f42-8ccb-5b22d5a58802" />
 Step 2: After entering spreadsheet ID, click Save Settings.
