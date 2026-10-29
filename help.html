@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mangago Tracker Help</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      background-attachment: fixed;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 16px 64px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 32px;
+    }
+
+    nav a {
+      margin-right: 16px;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 15px;
+      color: #fff;
+      margin: 20px 0 6px;
+    }
+
+    ol, ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    code {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1px 6px;
+      border-radius: 4px;
+      word-break: break-all;
+    }
+
+    a {
+      color: #8b9cf4;
+    }
+
+    .error {
+      border-left: 3px solid #ef4444;
+      padding-left: 12px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>📚 Mangago Tracker Help</h1>
+    <div class="meta">
+      Version <span id="version"></span> · Extension ID <code id="extensionId"></code>
+    </div>
+    <nav>
+      <a href="#setup">Setup Guide</a>
+      <a href="#troubleshooting">Troubleshooting</a>
+    </nav>
+    <br>
+
+    <section id="setup">
+      <h2>Setup Guide</h2>
+      <ol>
+        <li>Create a new Google Sheet at <a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a>. Leave the first tab named <code>Sheet1</code>.</li>
+        <li>Copy the spreadsheet ID from the address bar. It's the long part between <code>/d/</code> and <code>/edit</code>:<br>
+          <code>docs.google.com/spreadsheets/d/<strong>THIS_PART</strong>/edit</code></li>
+        <li>Click the Mangago Tracker icon in Chrome's toolbar, paste the ID, and click <strong>Save Settings</strong>.</li>
+        <li>Click <strong>Test Connection</strong>. A Google sign-in window opens. Choose the account that owns the sheet and allow access to Google Sheets.</li>
+        <li>When you see <em>Connected to "your sheet name"</em>, you're done. Open a manga on mangago.me and click <strong>Want to Read</strong>, <strong>Reading</strong> or <strong>Completed</strong>. The sheet updates automatically.</li>
+      </ol>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Troubleshooting</h2>
+
+      <h3 class="error">"OAuth2 request failed … bad client id"</h3>
+      <p>Google didn't recognize this copy of the extension. This happened with version 1.0.0 when it was installed from the downloaded files. To fix it:</p>
+      <ol>
+        <li>Go to <code>chrome://extensions</code> and remove Mangago Tracker.</li>
+        <li>Download the latest version and load it again with <strong>Load unpacked</strong>.</li>
+        <li>Check that the Extension ID at the top of this page is <code>gpojgbkdeecfajdfnjllinahgaphpmki</code>. If it is different, you have an old copy.</li>
+      </ol>
+      <p>If the ID matches and you still see this error, contact the developer and include the extension ID shown above.</p>
+
+      <h3 class="error">"Access blocked" or "This app is blocked" on the Google sign-in screen</h3>
+      <p>The app is still in Google's testing mode, so only approved accounts can sign in. Ask the developer to add your Google account as a tester.</p>
+
+      <h3 class="error">"Google hasn't verified this app"</h3>
+      <p>This is expected for small independent extensions. Click <strong>Advanced</strong> → <strong>Go to Mangago Reading List Tracker</strong> to continue. The extension can only reach Google Sheets. It can't see your email or other files.</p>
+
+      <h3 class="error">"Spreadsheet not found"</h3>
+      <p>The ID is wrong or incomplete. Copy it again from the sheet's address bar (only the part between <code>/d/</code> and <code>/edit</code>) and save.</p>
+
+      <h3 class="error">"Permission denied"</h3>
+      <p>You signed in with a Google account that can't edit this sheet. Share the sheet with that account, or create the sheet with the same account you signed in with.</p>
+
+      <h3 class="error">"Spreadsheet ID not configured"</h3>
+      <p>Paste your spreadsheet ID in the popup and click <strong>Save Settings</strong> before testing.</p>
+
+      <h3>Clicks on Mangago don't show up in the sheet</h3>
+      <ul>
+        <li>Run <strong>Test Connection</strong> first. Syncing only works after you're connected.</li>
+        <li>Reload the Mangago tab after installing or updating the extension.</li>
+        <li>Make sure the sheet still has a tab named <code>Sheet1</code>.</li>
+      </ul>
+
+      <h3>Signed in with the wrong Google account</h3>
+      <p>Go to <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>, remove Mangago Reading List Tracker, then click <strong>Test Connection</strong> again.</p>
+    </section>
+  </main>
+
+  <script src="help.js"></script>
+</body>
+</html>

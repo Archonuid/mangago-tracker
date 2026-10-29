@@ -43,13 +43,32 @@ async function getAuthToken() {
   return new Promise((resolve, reject) => {
     chrome.identity.getAuthToken({ interactive: true }, token => {
       if (chrome.runtime.lastError) {
-        reject(new Error(chrome.runtime.lastError.message));
+        reject(new Error(describeAuthError(chrome.runtime.lastError.message)));
       } else {
         authToken = token;
         resolve(authToken);
       }
     });
   });
+}
+
+// Drop a cached token that Google rejected so the next call fetches a fresh one
+async function clearAuthToken() {
+  if (!authToken) return;
+  await new Promise(resolve => chrome.identity.removeCachedAuthToken({ token: authToken }, resolve));
+  authToken = null;
+}
+
+// Turn Chrome's raw OAuth errors into something a user can act on
+function describeAuthError(message) {
+  if (/bad client id/i.test(message)) {
+    return `Google rejected this extension's sign-in (extension ID ${chrome.runtime.id} isn't registered). ` +
+      'Reinstall the latest version of the extension, then see Troubleshooting.';
+  }
+  if (/did not approve|user.*cancel/i.test(message)) {
+    return 'Google sign-in was cancelled. Click Test Connection again and approve access.';
+  }
+  return message;
 }
 
 // Test connection
@@ -60,16 +79,25 @@ async function testConnection() {
     throw new Error('Spreadsheet ID not configured');
   }
 
-  await getAuthToken();
-
-  const response = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${authToken}`
+  const fetchSheet = async () => {
+    await getAuthToken();
+    return fetch(
+      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
       }
-    }
-  );
+    );
+  };
+
+  let response = await fetchSheet();
+
+  // Expired or revoked token: clear it and retry once
+  if (response.status === 401) {
+    await clearAuthToken();
+    response = await fetchSheet();
+  }
 
   if (!response.ok) {
     if (response.status === 404) throw new Error('Spreadsheet not found');
@@ -90,6 +118,16 @@ async function handleSheetUpdate(mangaData) {
   }
 
   await getAuthToken();
+
+  // Service workers can keep a stale token around; validate it before writing
+  const check = await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}?fields=spreadsheetId`,
+    { headers: { Authorization: `Bearer ${authToken}` } }
+  );
+  if (check.status === 401) {
+    await clearAuthToken();
+    await getAuthToken();
+  }
 
   const existingRow = await findMangaRow(mangaData.title);
 

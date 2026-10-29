@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   saveBtn.addEventListener('click', saveSettings);
   testBtn.addEventListener('click', testConnection);
+  document.getElementById('setupLink').addEventListener('click', e => openHelp(e, 'setup'));
+  document.getElementById('troubleshootLink').addEventListener('click', e => openHelp(e, 'troubleshooting'));
+
+  function openHelp(event, section) {
+    event.preventDefault();
+    chrome.tabs.create({ url: chrome.runtime.getURL(`help.html#${section}`) });
+  }
 
   async function loadSettings() {
     const result = await chrome.storage.sync.get(['spreadsheetId']);

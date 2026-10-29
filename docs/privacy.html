@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy – Mangago Reading List Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p><a href="index.html">← Mangago Reading List Tracker</a></p>
+    <h1>Privacy Policy</h1>
+    <p class="lead">Last updated: October 29, 2026</p>
+
+    <section>
+      <h2>Summary</h2>
+      <p>Mangago Reading List Tracker runs entirely in your browser. It reads manga details from mangago.me pages you visit and writes them to a Google Sheet you choose. It has no server of its own and does not collect, sell or share your data.</p>
+    </section>
+
+    <section>
+      <h2>Google user data we access</h2>
+      <p>The extension asks for one Google permission: <code>https://www.googleapis.com/auth/spreadsheets</code> (see, edit, create and delete your Google Sheets spreadsheets). It uses it only to:</p>
+      <ul>
+        <li>Read the title of the spreadsheet you configure, to confirm the connection works.</li>
+        <li>Read the first column of <code>Sheet1</code> in that spreadsheet, to find rows that already exist.</li>
+        <li>Write rows containing a manga's title, reading status, last chapter and page URL to that spreadsheet.</li>
+      </ul>
+      <p>It does not open, read or change any other spreadsheet, and it does not access your email, contacts, Drive files or any other Google data.</p>
+    </section>
+
+    <section>
+      <h2>Data stored on your device</h2>
+      <ul>
+        <li>The spreadsheet ID you enter, saved with Chrome's built-in extension storage so it syncs between your own Chrome browsers.</li>
+        <li>A Google access token, managed by Chrome itself and kept only in memory by the extension.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Sharing</h2>
+      <p>Data goes directly from your browser to Google's Sheets API. The developer never receives it. Nothing is sent to any other party, and the extension contains no analytics, ads or tracking.</p>
+    </section>
+
+    <section>
+      <h2>Limited Use</h2>
+      <p>Mangago Reading List Tracker's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+    </section>
+
+    <section>
+      <h2>Removing access and data</h2>
+      <ul>
+        <li>Revoke the extension's Google access at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
+        <li>Uninstall the extension from <code>chrome://extensions</code> to delete its stored settings.</li>
+        <li>Rows already written to your spreadsheet stay there until you delete them, because the sheet belongs to you.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>Questions about this policy: <a href="mailto:archonuidruid@gmail.com">archonuidruid@gmail.com</a></p>
+    </section>
+  </main>
+</body>
+</html>
