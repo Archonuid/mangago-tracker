@@ -36,7 +36,7 @@
     "128": "icons/icon128.png"
   },
   "oauth2": {
-    "client_id": "389786177817-vik2bivbfnjeqe88ihqmdkrio2v0jgmi.apps.googleusercontent.com",
+    "client_id": "389786177817-kgemvtr463s7hov74u2n1rsvh1cctb4i.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/drive.file"
     ]

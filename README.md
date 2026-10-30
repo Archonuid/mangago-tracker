@@ -79,7 +79,9 @@ mangago-tracker/
 ---
 
 ## 🧩 Installation
-No Google Cloud setup needed. You only need Google Chrome (or another Chromium browser) and a Google account.
+Install it from the **[Chrome Web Store](https://chromewebstore.google.com/detail/hekjmppkcgbfenheehhhiibdajdpaigi)**, then click the extension icon and **Create my tracking sheet**.
+
+### Installing from source (for developers)
 
 1. On this page, click **Code → Download ZIP** and unzip it
 2. Open Chrome and go to: `chrome://extensions`
@@ -131,6 +133,10 @@ Pull requests and issues are welcome. Feel free to fork and adapt this project f
 ---
 
 ## 🛠 Maintainer notes
-- The `key` in `manifest.json` gives every install the same extension ID. The shared OAuth client (Google Cloud → Google Auth Platform → Clients) is a **Chrome Extension** client with Item ID `gpojgbkdeecfajdfnjllinahgaphpmki`. Don't remove the key, or sign-in breaks for everyone.
+- There are two OAuth clients (Google Cloud → Google Auth Platform → Clients):
+  - **Web Store**: `389786177817-vik2…`, Item ID `hekjmppkcgbfenheehhhiibdajdpaigi`. Used by `store/build_zip.py`.
+  - **GitHub installs**: `389786177817-kgem…`, Item ID `gpojgbkdeecfajdfnjllinahgaphpmki`. Used by `manifest.json` in this repo.
+- The `key` in `manifest.json` gives every source install the same ID so the GitHub client accepts it. Don't remove it.
+- To publish a store update, see [store/LISTING.md](store/LISTING.md).
 - `key.pem` is the private half of that key. It is gitignored; keep a backup.
 - If you fork this and use your own OAuth client, replace `oauth2.client_id` in `manifest.json` and remove `key` (or generate your own).
