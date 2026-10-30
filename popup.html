@@ -189,6 +189,35 @@
       color: #fff;
     }
 
+    .sheet-list {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+
+    .sheet-list li + li {
+      margin-top: 8px;
+    }
+
+    .sheet-list button {
+      width: 100%;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .sheet-list button:hover {
+      border-color: #667eea;
+      background: rgba(102, 126, 234, 0.15);
+    }
+
+    .sheet-list small {
+      display: block;
+      margin-top: 2px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
     .advanced {
       margin-top: 20px;
       font-size: 12px;
@@ -282,10 +311,16 @@
     </div>
 
     <div id="noSheet">
-      <button id="createBtn" class="btn-primary btn-block">Create my tracking sheet</button>
+      <button id="setupBtn" class="btn-primary btn-block">Set up my tracking sheet</button>
       <div class="hint">
-        Makes a new Google Sheet in your Drive called "Mangago Reading List". You'll be asked to sign in to Google the first time.
+        Sign in to Google, then pick a sheet this extension made before or create a new one called "Mangago Reading List".
       </div>
+    </div>
+
+    <div id="chooseSheet" hidden>
+      <label>Found sheets this extension made before</label>
+      <ul id="sheetList" class="sheet-list"></ul>
+      <button id="createBtn" class="btn-secondary btn-block">Create a new sheet instead</button>
     </div>
 
     <div id="hasSheet" hidden>
@@ -305,7 +340,7 @@
           placeholder="1AbC...XyZ"
         />
         <div class="hint">
-          Only works for a sheet this extension created, for example after reinstalling. Find the ID in the sheet's URL:<br>
+          Only works for a sheet this extension created. Find the ID in the sheet's URL:<br>
           docs.google.com/spreadsheets/d/<strong>[YOUR_ID]</strong>/edit
         </div>
       </div>

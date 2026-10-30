@@ -11,7 +11,7 @@ Mangago Tracker saves your reading list directly to your own Google Sheet, under
 
 ---
 
-Step 1: Click the extension icon, then **Create my tracking sheet** and sign in to Google.
+Step 1: Click the extension icon, then **Set up my tracking sheet** and sign in to Google.
 Step 2: Click **Open my sheet** to see your new "Mangago Reading List" sheet.
 Step 3: Go to any manga on mangago and add it to your 'Want to Read', 'Reading' or 'Already Read' list and you will see that manga in your Spreadsheet.
 <img width="1918" height="820" alt="Image" src="https://github.com/user-attachments/assets/0792a3e8-4d31-4dc5-ada2-838b4dab4ec3" />
@@ -79,7 +79,7 @@ mangago-tracker/
 ---
 
 ## 🧩 Installation
-Install it from the **[Chrome Web Store](https://chromewebstore.google.com/detail/hekjmppkcgbfenheehhhiibdajdpaigi)**, then click the extension icon and **Create my tracking sheet**.
+Install it from the **[Chrome Web Store](https://chromewebstore.google.com/detail/hekjmppkcgbfenheehhhiibdajdpaigi)**, then click the extension icon and **Set up my tracking sheet**.
 
 ### Installing from source (for developers)
 
@@ -97,11 +97,12 @@ The extension can only see the spreadsheet it creates for you. It can't open any
 
 ## 📄 Google Sheets Setup
 1. Open the extension popup
-2. Click **Create my tracking sheet**
+2. Click **Set up my tracking sheet**
 3. Approve Google sign-in
-4. Click **Open my sheet** to see it
+4. If the extension made a sheet for you before, pick it to keep using it, or create a new one
+5. Click **Open my sheet** to see it
 
-The sheet is created in your Google Drive with headers already in place. Reinstalling? Open **Use a sheet ID instead** in the popup and paste the ID of the sheet the extension made before.
+New sheets are created in your Google Drive with headers already in place. Reinstalling or on a new computer? Set up again with the same Google account and your earlier sheet will be offered.
 
 ---
 

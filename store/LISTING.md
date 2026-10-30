@@ -22,7 +22,7 @@ If you change the listing, the text below is a starting point.
 > Manga sites go down, and when they do, reading lists often disappear with them. Mangago Reading List Tracker copies your lists into a Google Sheet in your own Google Drive, so you keep them even if a site goes offline.
 >
 > How it works
-> • Click "Create my tracking sheet" once and sign in with Google.
+> • Click "Set up my tracking sheet" once and sign in with Google.
 > • Browse Mangago as usual. When you add a manga to Want to Read, Reading or Already Read, it appears in your sheet.
 > • Each row has the title, status, last chapter and a link back to the page.
 > • No duplicates. Changing a manga's status updates its existing row.

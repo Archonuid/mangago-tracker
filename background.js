@@ -31,6 +31,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;
   }
 
+  if (request.action === 'findSheets') {
+    findSheets(request.interactive)
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+
   if (request.action === 'reloadSettings') {
     loadSettings();
   }
@@ -44,11 +51,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 // OAuth token (single source of truth)
-async function getAuthToken() {
+async function getAuthToken(interactive = true) {
   if (authToken) return authToken;
 
   return new Promise((resolve, reject) => {
-    chrome.identity.getAuthToken({ interactive: true }, token => {
+    chrome.identity.getAuthToken({ interactive }, token => {
       if (chrome.runtime.lastError) {
         reject(new Error(describeAuthError(chrome.runtime.lastError.message)));
       } else {
@@ -109,13 +116,45 @@ async function testConnection() {
   if (!response.ok) {
     // With the drive.file scope, sheets the extension didn't create look missing
     if (response.status === 404 || response.status === 403) {
-      throw new Error('Can\'t open this sheet. The extension can only use sheets it created. Click "Create my tracking sheet" to make one.');
+      throw new Error('Can\'t open this sheet. The extension can only use sheets it created. Click "Set up my tracking sheet" to make one.');
     }
     throw new Error(`Sheets API error: ${response.statusText}`);
   }
 
   const data = await response.json();
   return { success: true, title: data.properties.title };
+}
+
+// List spreadsheets this extension created earlier (drive.file only exposes those).
+// Non-interactive calls report signedIn: false instead of opening a sign-in window.
+async function findSheets(interactive = true) {
+  try {
+    await getAuthToken(interactive);
+  } catch (err) {
+    if (!interactive) return { success: true, signedIn: false, sheets: [] };
+    throw err;
+  }
+
+  const query = encodeURIComponent("mimeType='application/vnd.google-apps.spreadsheet' and trashed=false");
+  const listFiles = () => fetch(
+    `https://www.googleapis.com/drive/v3/files?q=${query}&orderBy=modifiedTime desc&pageSize=10&fields=files(id,name,modifiedTime)`,
+    { headers: { Authorization: `Bearer ${authToken}` } }
+  );
+
+  let response = await listFiles();
+
+  if (response.status === 401) {
+    await clearAuthToken();
+    await getAuthToken(interactive);
+    response = await listFiles();
+  }
+
+  if (!response.ok) {
+    throw new Error(`Couldn't look for your sheets: ${response.statusText || response.status}`);
+  }
+
+  const data = await response.json();
+  return { success: true, signedIn: true, sheets: data.files || [] };
 }
 
 // Create a new tracking sheet in the user's Drive and remember it
