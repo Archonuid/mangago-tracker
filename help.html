@@ -104,13 +104,12 @@
     <section id="setup">
       <h2>Setup Guide</h2>
       <ol>
-        <li>Create a new Google Sheet at <a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a>. Leave the first tab named <code>Sheet1</code>.</li>
-        <li>Copy the spreadsheet ID from the address bar. It's the long part between <code>/d/</code> and <code>/edit</code>:<br>
-          <code>docs.google.com/spreadsheets/d/<strong>THIS_PART</strong>/edit</code></li>
-        <li>Click the Mangago Tracker icon in Chrome's toolbar, paste the ID, and click <strong>Save Settings</strong>.</li>
-        <li>Click <strong>Test Connection</strong>. A Google sign-in window opens. Choose the account that owns the sheet and allow access to Google Sheets.</li>
-        <li>When you see <em>Connected to "your sheet name"</em>, you're done. Open a manga on mangago.me and click <strong>Want to Read</strong>, <strong>Reading</strong> or <strong>Completed</strong>. The sheet updates automatically.</li>
+        <li>Click the Mangago Tracker icon in Chrome's toolbar.</li>
+        <li>Click <strong>Create my tracking sheet</strong>. A Google sign-in window opens. Choose your Google account and allow access.</li>
+        <li>The extension creates a sheet called <em>Mangago Reading List</em> in your Google Drive. Click <strong>Open my sheet</strong> to see it.</li>
+        <li>Open a manga on mangago.me and click <strong>Want to Read</strong>, <strong>Reading</strong> or <strong>Completed</strong>. The sheet updates automatically.</li>
       </ol>
+      <p>The extension can only see sheets it created. It can't open any of your other files.</p>
     </section>
 
     <section id="troubleshooting">
@@ -125,30 +124,28 @@
       </ol>
       <p>If the ID matches and you still see this error, contact the developer and include the extension ID shown above.</p>
 
-      <h3 class="error">"Access blocked" or "This app is blocked" on the Google sign-in screen</h3>
-      <p>The app is still in Google's testing mode, so only approved accounts can sign in. Ask the developer to add your Google account as a tester.</p>
+      <h3 class="error">"Can't open this sheet. The extension can only use sheets it created."</h3>
+      <p>Since version 1.1, the extension only has access to sheets it made itself. A sheet you created by hand, or one from an older version, won't work. Click <strong>Create my tracking sheet</strong> to make a new one. You can copy your old rows into it.</p>
+      <p>If you see this for a sheet the extension did create, you're probably signed in with a different Google account. See <em>Signed in with the wrong Google account</em> below.</p>
 
-      <h3 class="error">"Google hasn't verified this app"</h3>
-      <p>This is expected for small independent extensions. Click <strong>Advanced</strong> → <strong>Go to Mangago Reading List Tracker</strong> to continue. The extension can only reach Google Sheets. It can't see your email or other files.</p>
-
-      <h3 class="error">"Spreadsheet not found"</h3>
-      <p>The ID is wrong or incomplete. Copy it again from the sheet's address bar (only the part between <code>/d/</code> and <code>/edit</code>) and save.</p>
-
-      <h3 class="error">"Permission denied"</h3>
-      <p>You signed in with a Google account that can't edit this sheet. Share the sheet with that account, or create the sheet with the same account you signed in with.</p>
+      <h3 class="error">"Access blocked" on the Google sign-in screen</h3>
+      <p>Contact the developer and include the extension ID shown at the top of this page.</p>
 
       <h3 class="error">"Spreadsheet ID not configured"</h3>
-      <p>Paste your spreadsheet ID in the popup and click <strong>Save Settings</strong> before testing.</p>
+      <p>Click <strong>Create my tracking sheet</strong> in the popup first.</p>
+
+      <h3>Reinstalled the extension, or using a new computer</h3>
+      <p>If you're signed in to Chrome, your sheet is remembered automatically. If not, open <strong>Use a sheet ID instead</strong> in the popup and paste the ID of the sheet the extension created before. It's the part of the sheet's address between <code>/d/</code> and <code>/edit</code>.</p>
 
       <h3>Clicks on Mangago don't show up in the sheet</h3>
       <ul>
-        <li>Run <strong>Test Connection</strong> first. Syncing only works after you're connected.</li>
+        <li>Create your sheet from the popup first, then click <strong>Test Connection</strong> to check it.</li>
         <li>Reload the Mangago tab after installing or updating the extension.</li>
         <li>Make sure the sheet still has a tab named <code>Sheet1</code>.</li>
       </ul>
 
       <h3>Signed in with the wrong Google account</h3>
-      <p>Go to <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>, remove Mangago Reading List Tracker, then click <strong>Test Connection</strong> again.</p>
+      <p>Go to <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>, remove Mangago Reading List Tracker, then click <strong>Test Connection</strong> again and pick the right account.</p>
     </section>
   </main>
 

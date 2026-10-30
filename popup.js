@@ -2,14 +2,19 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
   const spreadsheetIdInput = document.getElementById('spreadsheetId');
+  const createBtn = document.getElementById('createBtn');
   const saveBtn = document.getElementById('saveBtn');
   const testBtn = document.getElementById('testBtn');
+  const noSheetEl = document.getElementById('noSheet');
+  const hasSheetEl = document.getElementById('hasSheet');
+  const openSheetLink = document.getElementById('openSheetLink');
   const statusEl = document.getElementById('status');
   const statusText = document.getElementById('statusText');
   const loadingEl = document.getElementById('loading');
 
   loadSettings();
 
+  createBtn.addEventListener('click', createSheet);
   saveBtn.addEventListener('click', saveSettings);
   testBtn.addEventListener('click', testConnection);
   document.getElementById('setupLink').addEventListener('click', e => openHelp(e, 'setup'));
@@ -22,11 +27,41 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function loadSettings() {
     const result = await chrome.storage.sync.get(['spreadsheetId']);
+    showSheet(result.spreadsheetId);
     if (result.spreadsheetId) {
-      spreadsheetIdInput.value = result.spreadsheetId;
-      updateStatus('connected', 'Settings loaded');
+      updateStatus('connected', 'Sheet linked. Syncing is on.');
     } else {
-      updateStatus('', 'Not configured');
+      updateStatus('', 'No sheet yet. Create one to start syncing.');
+    }
+  }
+
+  // Toggle between the "create" and "linked" views
+  function showSheet(spreadsheetId) {
+    spreadsheetIdInput.value = spreadsheetId || '';
+    noSheetEl.hidden = !!spreadsheetId;
+    hasSheetEl.hidden = !spreadsheetId;
+    if (spreadsheetId) {
+      openSheetLink.href = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
+    }
+  }
+
+  async function createSheet() {
+    showLoading(true);
+
+    try {
+      const response = await chrome.runtime.sendMessage({ action: 'createSheet' });
+
+      showLoading(false);
+
+      if (response.success) {
+        showSheet(response.spreadsheetId);
+        updateStatus('connected', `✓ Created "${response.title}". Syncing is on.`);
+      } else {
+        updateStatus('error', response.error);
+      }
+    } catch (err) {
+      showLoading(false);
+      updateStatus('error', err.message);
     }
   }
 
@@ -39,7 +74,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await chrome.storage.sync.set({ spreadsheetId });
     chrome.runtime.sendMessage({ action: 'reloadSettings' });
-    updateStatus('connected', 'Settings saved');
+    showSheet(spreadsheetId);
+    testConnection();
   }
 
   async function testConnection() {
@@ -70,9 +106,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function showLoading(show) {
     loadingEl.style.display = show ? 'block' : 'none';
+    createBtn.disabled = show;
     saveBtn.disabled = show;
     testBtn.disabled = show;
   }
 });
-
-  

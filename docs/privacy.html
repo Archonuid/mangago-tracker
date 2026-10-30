@@ -10,28 +10,29 @@
   <main>
     <p><a href="index.html">← Mangago Reading List Tracker</a></p>
     <h1>Privacy Policy</h1>
-    <p class="lead">Last updated: October 29, 2026</p>
+    <p class="lead">Last updated: October 30, 2026</p>
 
     <section>
       <h2>Summary</h2>
-      <p>Mangago Reading List Tracker runs entirely in your browser. It reads manga details from mangago.me pages you visit and writes them to a Google Sheet you choose. It has no server of its own and does not collect, sell or share your data.</p>
+      <p>Mangago Reading List Tracker runs entirely in your browser. It reads manga details from mangago.me pages you visit and writes them to a Google Sheet it creates for you. It has no server of its own and does not collect, sell or share your data.</p>
     </section>
 
     <section>
       <h2>Google user data we access</h2>
-      <p>The extension asks for one Google permission: <code>https://www.googleapis.com/auth/spreadsheets</code> (see, edit, create and delete your Google Sheets spreadsheets). It uses it only to:</p>
+      <p>The extension asks for one Google permission: <code>https://www.googleapis.com/auth/drive.file</code> (see, edit, create and delete only the specific Google Drive files you use with this app). It cannot see any file it did not create. It uses this permission only to:</p>
       <ul>
-        <li>Read the title of the spreadsheet you configure, to confirm the connection works.</li>
+        <li>Create one spreadsheet named "Mangago Reading List" in your Google Drive.</li>
+        <li>Read that spreadsheet's title, to confirm the connection works.</li>
         <li>Read the first column of <code>Sheet1</code> in that spreadsheet, to find rows that already exist.</li>
         <li>Write rows containing a manga's title, reading status, last chapter and page URL to that spreadsheet.</li>
       </ul>
-      <p>It does not open, read or change any other spreadsheet, and it does not access your email, contacts, Drive files or any other Google data.</p>
+      <p>It does not open, read or change any other spreadsheet, and it does not access your email, contacts, other Drive files or any other Google data.</p>
     </section>
 
     <section>
       <h2>Data stored on your device</h2>
       <ul>
-        <li>The spreadsheet ID you enter, saved with Chrome's built-in extension storage so it syncs between your own Chrome browsers.</li>
+        <li>The ID of the spreadsheet the extension created, saved with Chrome's built-in extension storage so it syncs between your own Chrome browsers.</li>
         <li>A Google access token, managed by Chrome itself and kept only in memory by the extension.</li>
       </ul>
     </section>

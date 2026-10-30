@@ -170,6 +170,44 @@
       background: rgba(255, 255, 255, 0.15);
     }
 
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+
+    .btn-link {
+      flex: 1;
+      display: block;
+      padding: 11px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .btn-link:hover {
+      color: #fff;
+    }
+
+    .advanced {
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .advanced summary {
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .advanced[open] summary {
+      margin-bottom: 16px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
     .info-section {
       margin-top: 24px;
       padding-top: 20px;
@@ -243,23 +281,36 @@
       <span id="statusText">Not configured</span>
     </div>
 
-    <div class="form-group">
-      <label for="spreadsheetId">Google Spreadsheet ID</label>
-      <input 
-        type="text" 
-        id="spreadsheetId" 
-        placeholder="1AbC...XyZ"
-      />
+    <div id="noSheet">
+      <button id="createBtn" class="btn-primary btn-block">Create my tracking sheet</button>
       <div class="hint">
-        Find this in your spreadsheet URL:<br>
-        docs.google.com/spreadsheets/d/<strong>[YOUR_ID]</strong>/edit
+        Makes a new Google Sheet in your Drive called "Mangago Reading List". You'll be asked to sign in to Google the first time.
       </div>
     </div>
 
-    <div class="buttons">
-      <button id="saveBtn" class="btn-primary">Save Settings</button>
-      <button id="testBtn" class="btn-secondary">Test Connection</button>
+    <div id="hasSheet" hidden>
+      <div class="buttons">
+        <a id="openSheetLink" class="btn-primary btn-link" href="#" target="_blank" rel="noopener">Open my sheet</a>
+        <button id="testBtn" class="btn-secondary">Test Connection</button>
+      </div>
     </div>
+
+    <details class="advanced">
+      <summary>Use a sheet ID instead</summary>
+      <div class="form-group">
+        <label for="spreadsheetId">Google Spreadsheet ID</label>
+        <input
+          type="text"
+          id="spreadsheetId"
+          placeholder="1AbC...XyZ"
+        />
+        <div class="hint">
+          Only works for a sheet this extension created, for example after reinstalling. Find the ID in the sheet's URL:<br>
+          docs.google.com/spreadsheets/d/<strong>[YOUR_ID]</strong>/edit
+        </div>
+      </div>
+      <button id="saveBtn" class="btn-secondary btn-block">Save Sheet ID</button>
+    </details>
 
     <div class="loading" id="loading">
       <div class="spinner"></div>

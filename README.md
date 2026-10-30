@@ -11,13 +11,9 @@ Mangago Tracker saves your reading list directly to your own Google Sheet, under
 
 ---
 
-Step 1: Enter Spreadsheet ID.
-<img width="1918" height="1140" alt="Image" src="https://github.com/user-attachments/assets/1e9a40e7-03b0-4f42-8ccb-5b22d5a58802" />
-Step 2: After entering spreadsheet ID, click Save Settings.
-<img width="1918" height="1087" alt="Image" src="https://github.com/user-attachments/assets/174dc6eb-f861-44f5-b7ff-ca02b1bc4d79" />
-Step 3: Click on test connection.
-<img width="1918" height="1087" alt="Image" src="https://github.com/user-attachments/assets/909ef1cd-2416-46c5-80a6-8cdbba6aa341" />
-Step 4: Go to any manga on mangago and add it to your 'Want to Read', 'Reading' or 'Already Read' list and you will see that manga in your Spreadsheet.
+Step 1: Click the extension icon, then **Create my tracking sheet** and sign in to Google.
+Step 2: Click **Open my sheet** to see your new "Mangago Reading List" sheet.
+Step 3: Go to any manga on mangago and add it to your 'Want to Read', 'Reading' or 'Already Read' list and you will see that manga in your Spreadsheet.
 <img width="1918" height="820" alt="Image" src="https://github.com/user-attachments/assets/0792a3e8-4d31-4dc5-ada2-838b4dab4ec3" />
 
 ## ✨ Features
@@ -58,7 +54,7 @@ mangago-tracker/
   Detects user actions on Mangago pages and sends manga data to the background script
 
 - **popup.html / popup.js**  
-  Extension UI for entering Spreadsheet ID and testing connection
+  Extension UI for creating your sheet and testing the connection
 
 - **help.html / help.js**  
   Setup Guide and Troubleshooting page, opened from the popup
@@ -69,7 +65,7 @@ mangago-tracker/
 ---
 
 ## 🚀 How It Works
-1. You connect the extension to a Google Sheet using OAuth
+1. The extension creates a Google Sheet for you, after you sign in with Google
 2. The extension runs on `https://www.mangago.me/*`
 3. When you click:
    - **Want to Read**
@@ -93,19 +89,17 @@ No Google Cloud setup needed. You only need Google Chrome (or another Chromium b
 
 The extension ID shown in `chrome://extensions` should be `gpojgbkdeecfajdfnjllinahgaphpmki`. If it's different, you have an old copy: remove it and download again.
 
-When you sign in, Google may show **"Google hasn't verified this app"**. Click **Advanced → Go to Mangago Reading List Tracker** to continue. The extension can only access Google Sheets.
+The extension can only see the spreadsheet it creates for you. It can't open any of your other Google files.
 
 ---
 
 ## 📄 Google Sheets Setup
-1. Create a new Google Sheet
-2. Copy the Spreadsheet ID from the URL: `https://docs.google.com/spreadsheets/d/SPREADSHEET_ID/edit`
-3. Open the extension popup
-4. Paste the Spreadsheet ID
-5. Click Save Settings
-6. Click Test Connection
-7. Approve Google OAuth
-The extension will automatically create headers if the sheet is empty.
+1. Open the extension popup
+2. Click **Create my tracking sheet**
+3. Approve Google sign-in
+4. Click **Open my sheet** to see it
+
+The sheet is created in your Google Drive with headers already in place. Reinstalling? Open **Use a sheet ID instead** in the popup and paste the ID of the sheet the extension made before.
 
 ---
 

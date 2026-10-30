@@ -24,6 +24,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true;
   }
 
+  if (request.action === 'createSheet') {
+    createSheet()
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+
   if (request.action === 'reloadSettings') {
     loadSettings();
   }
@@ -66,7 +73,7 @@ function describeAuthError(message) {
       'Reinstall the latest version of the extension, then see Troubleshooting.';
   }
   if (/did not approve|user.*cancel/i.test(message)) {
-    return 'Google sign-in was cancelled. Click Test Connection again and approve access.';
+    return 'Google sign-in was cancelled. Try again and approve access.';
   }
   return message;
 }
@@ -100,13 +107,62 @@ async function testConnection() {
   }
 
   if (!response.ok) {
-    if (response.status === 404) throw new Error('Spreadsheet not found');
-    if (response.status === 403) throw new Error('Permission denied');
+    // With the drive.file scope, sheets the extension didn't create look missing
+    if (response.status === 404 || response.status === 403) {
+      throw new Error('Can\'t open this sheet. The extension can only use sheets it created. Click "Create my tracking sheet" to make one.');
+    }
     throw new Error(`Sheets API error: ${response.statusText}`);
   }
 
   const data = await response.json();
   return { success: true, title: data.properties.title };
+}
+
+// Create a new tracking sheet in the user's Drive and remember it
+async function createSheet() {
+  const postSheet = async () => {
+    await getAuthToken();
+    return fetch('https://sheets.googleapis.com/v4/spreadsheets', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        properties: { title: 'Mangago Reading List' },
+        sheets: [{
+          properties: { title: 'Sheet1', gridProperties: { frozenRowCount: 1 } },
+          data: [{
+            startRow: 0,
+            startColumn: 0,
+            rowData: [{
+              values: ['Manga Title', 'Status', 'Last Chapter', 'URL'].map(text => ({
+                userEnteredValue: { stringValue: text },
+                userEnteredFormat: { textFormat: { bold: true } }
+              }))
+            }]
+          }]
+        }]
+      })
+    });
+  };
+
+  let response = await postSheet();
+
+  if (response.status === 401) {
+    await clearAuthToken();
+    response = await postSheet();
+  }
+
+  if (!response.ok) {
+    throw new Error(`Couldn't create the sheet: ${response.statusText || response.status}`);
+  }
+
+  const data = await response.json();
+  spreadsheetId = data.spreadsheetId;
+  await chrome.storage.sync.set({ spreadsheetId });
+
+  return { success: true, spreadsheetId, title: data.properties.title, url: data.spreadsheetUrl };
 }
 
 // Handle sheet updates
