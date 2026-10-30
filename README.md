@@ -108,7 +108,7 @@ New sheets are created in your Google Drive with headers already in place. Reins
 
 ## 🧪 Usage
 1. Open a manga page on Mangago
-2. Click Want to Read, Reading, or Completed
+2. Click Want to read, Now reading, or Already read
 3. Check your Google Sheet — the entry will appear or update automatically
 
 ---
