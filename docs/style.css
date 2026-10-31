@@ -73,3 +73,10 @@ footer {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.5);
 }
+
+.logo {
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
