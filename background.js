@@ -50,37 +50,114 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
+// Brave, Edge and Opera don't support getAuthToken, so they sign in through
+// Google's web sign-in page with this "Web application" client instead
+const WEB_CLIENT_ID = '389786177817-tfahhf9nuhpcf1psumtuuq8breiptutv.apps.googleusercontent.com';
+
+const brands = (navigator.userAgentData?.brands || []).map(b => b.brand);
+const isChrome = brands.includes('Google Chrome');
+const isBrave = brands.includes('Brave');
+
+let usingWebSignIn = !isChrome;
+
 // OAuth token (single source of truth)
 async function getAuthToken(interactive = true) {
   if (authToken) return authToken;
 
+  if (!usingWebSignIn) {
+    try {
+      authToken = await getChromeToken(interactive);
+      return authToken;
+    } catch (err) {
+      if (!/not supported/i.test(err.message)) throw new Error(describeAuthError(err.message));
+      usingWebSignIn = true;
+    }
+  }
+
+  try {
+    authToken = await getWebToken(interactive);
+    return authToken;
+  } catch (err) {
+    throw new Error(describeAuthError(err.message));
+  }
+}
+
+function getChromeToken(interactive) {
   return new Promise((resolve, reject) => {
     chrome.identity.getAuthToken({ interactive }, token => {
       if (chrome.runtime.lastError) {
-        reject(new Error(describeAuthError(chrome.runtime.lastError.message)));
+        reject(new Error(chrome.runtime.lastError.message));
       } else {
-        authToken = token;
-        resolve(authToken);
+        resolve(token);
       }
     });
   });
 }
 
+// Web sign-in tokens last an hour; keep them in session storage so a restarted
+// service worker doesn't have to sign in again
+async function getWebToken(interactive) {
+  const { webToken } = await chrome.storage.session.get('webToken');
+  if (webToken && webToken.expiresAt > Date.now() + 60 * 1000) return webToken.token;
+
+  // Once the user has approved access, Google hands out a new token without showing anything
+  try {
+    return await launchGoogleSignIn(false);
+  } catch (err) {
+    if (!interactive) throw err;
+    return launchGoogleSignIn(true);
+  }
+}
+
+async function launchGoogleSignIn(interactive) {
+  const params = new URLSearchParams({
+    client_id: WEB_CLIENT_ID,
+    response_type: 'token',
+    redirect_uri: chrome.identity.getRedirectURL(),
+    scope: chrome.runtime.getManifest().oauth2.scopes.join(' '),
+    include_granted_scopes: 'true'
+  });
+  if (!interactive) params.set('prompt', 'none');
+
+  const redirect = await chrome.identity.launchWebAuthFlow({
+    url: `https://accounts.google.com/o/oauth2/v2/auth?${params}`,
+    interactive
+  });
+
+  const result = new URLSearchParams(new URL(redirect).hash.slice(1));
+  if (result.get('error')) throw new Error(result.get('error'));
+
+  const token = result.get('access_token');
+  if (!token) throw new Error('Google sign-in didn\'t return a token.');
+
+  const expiresIn = Number(result.get('expires_in')) || 3600;
+  await chrome.storage.session.set({ webToken: { token, expiresAt: Date.now() + expiresIn * 1000 } });
+  return token;
+}
+
 // Drop a cached token that Google rejected so the next call fetches a fresh one
 async function clearAuthToken() {
   if (!authToken) return;
-  await new Promise(resolve => chrome.identity.removeCachedAuthToken({ token: authToken }, resolve));
+  if (usingWebSignIn) {
+    await chrome.storage.session.remove('webToken');
+  } else {
+    await new Promise(resolve => chrome.identity.removeCachedAuthToken({ token: authToken }, resolve));
+  }
   authToken = null;
 }
 
-// Turn Chrome's raw OAuth errors into something a user can act on
+// Turn raw OAuth errors into something a user can act on
 function describeAuthError(message) {
   if (/bad client id/i.test(message)) {
     return `Google rejected this extension's sign-in (extension ID ${chrome.runtime.id} isn't registered). ` +
       'Reinstall the latest version of the extension, then see Troubleshooting.';
   }
-  if (/did not approve|user.*cancel/i.test(message)) {
+  if (/did not approve|user.*cancel|access_denied/i.test(message)) {
     return 'Google sign-in was cancelled. Try again and approve access.';
+  }
+  if (isBrave && usingWebSignIn) {
+    return 'Google sign-in didn\'t open. In Brave, go to brave://settings/extensions, turn on ' +
+      '"Allow Google login for extensions", then try again.';
   }
   return message;
 }

@@ -81,6 +81,8 @@ mangago-tracker/
 ## 🧩 Installation
 Install it from the **[Chrome Web Store](https://chromewebstore.google.com/detail/hekjmppkcgbfenheehhhiibdajdpaigi)**, then click the extension icon and **Set up my tracking sheet**.
 
+It works in Chrome, Brave, Microsoft Edge and Opera, all from the same Chrome Web Store listing. In Brave, first turn on **Allow Google login for extensions** in `brave://settings/extensions`.
+
 ### Installing from source (for developers)
 
 1. On this page, click **Code → Download ZIP** and unzip it
@@ -137,6 +139,7 @@ Pull requests and issues are welcome. Feel free to fork and adapt this project f
 - There are two OAuth clients (Google Cloud → Google Auth Platform → Clients):
   - **Web Store**: `389786177817-vik2…`, Item ID `hekjmppkcgbfenheehhhiibdajdpaigi`. Used by `store/build_zip.py`.
   - **GitHub installs**: `389786177817-kgem…`, Item ID `gpojgbkdeecfajdfnjllinahgaphpmki`. Used by `manifest.json` in this repo.
+- Browsers other than Chrome (Brave, Edge, Opera) can't use `chrome.identity.getAuthToken`, so `background.js` signs them in with `launchWebAuthFlow` and a third client, **Web application** `389786177817-tfah…` (`WEB_CLIENT_ID`). Its redirect URIs are `https://<extension ID>.chromiumapp.org/` for both IDs above.
 - The `key` in `manifest.json` gives every source install the same ID so the GitHub client accepts it. Don't remove it.
 - To publish a store update, see [store/LISTING.md](store/LISTING.md).
 - `key.pem` is the private half of that key. It is gitignored; keep a backup.

@@ -27,6 +27,8 @@ If you change the listing, the text below is a starting point.
 > • Each row has the title, status, last chapter and a link back to the page.
 > • No duplicates. Changing a manga's status updates its existing row.
 >
+> Works in Chrome, Brave, Microsoft Edge and Opera. (In Brave, turn on "Allow Google login for extensions" in brave://settings/extensions first.)
+>
 > Private by design
 > • The extension can only see the one spreadsheet it creates. It can't open any of your other Google files.
 > • No servers, no accounts, no ads, no analytics, no tracking. Your data goes straight from your browser to your own Google Sheet.
